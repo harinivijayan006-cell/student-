@@ -1,16 +1,18 @@
 import { useEffect, useState } from 'react';
-import { Users, UserCheck, Building2, GraduationCap, CalendarClock, Activity, UserPlus, Pencil, Trash2, LogIn } from 'lucide-react';
+import { Users, UserCheck, Building2, GraduationCap, CalendarClock, Activity, UserPlus, Pencil, Trash2, LogIn, ArrowUpRight, Plus } from 'lucide-react';
 import {
   PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend,
   BarChart, Bar, XAxis, YAxis, CartesianGrid,
   LineChart, Line,
 } from 'recharts';
+import { Link } from 'react-router-dom';
 import { StatCard, SkeletonCard, Spinner } from '@/components/ui';
 import {
   getDashboardStats, getDepartmentStats, getYearStats, getAdmissionTrends, getActivityLog,
 } from '@/services/studentService';
 import type { DashboardStats, DepartmentStat, YearStat, AdmissionTrend, ActivityLog } from '@/types';
 import { useTheme } from '@/context/ThemeContext';
+import { useAuth } from '@/context/AuthContext';
 
 const PIE_COLORS = ['#2563eb', '#16a34a', '#f59e0b', '#dc2626', '#7c3aed', '#0891b2'];
 
@@ -35,6 +37,7 @@ function formatTimeAgo(dateStr: string): string {
 
 export default function Dashboard() {
   const { theme } = useTheme();
+  const { user } = useAuth();
   const [stats, setStats] = useState<DashboardStats | null>(null);
   const [deptStats, setDeptStats] = useState<DepartmentStat[]>([]);
   const [yearStats, setYearStats] = useState<YearStat[]>([]);
@@ -68,6 +71,15 @@ export default function Dashboard() {
     borderRadius: '8px',
     fontSize: '12px',
   };
+  const hour = new Date().getHours();
+  const greeting = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
+  const displayName = user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'there';
+  const today = new Intl.DateTimeFormat('en', {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+  }).format(new Date());
 
   if (loading) {
     return (
@@ -82,9 +94,30 @@ export default function Dashboard() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-xl font-bold text-gray-900 dark:text-white lg:text-2xl">Dashboard</h2>
-        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Overview of student management statistics</p>
+      <div className="flex flex-col gap-5 border-b border-gray-200 pb-6 dark:border-gray-800 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <div className="mb-3 flex flex-wrap items-center gap-2">
+            <span className="text-xs text-gray-500 dark:text-gray-400">{today}</span>
+          </div>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white lg:text-3xl">{greeting}, {displayName}</h2>
+          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Here&apos;s your latest student and enrollment overview.</p>
+        </div>
+        <div className="flex flex-wrap items-center gap-2">
+          <Link
+            to="/students"
+            className="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-semibold text-gray-700 transition-colors hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:hover:bg-gray-800"
+          >
+            Browse students
+            <ArrowUpRight className="h-4 w-4" />
+          </Link>
+          <Link
+            to="/students/add"
+            className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-blue-700"
+          >
+            <Plus className="h-4 w-4" />
+            Add student
+          </Link>
+        </div>
       </div>
 
       {/* Stat Cards */}

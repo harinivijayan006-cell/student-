@@ -121,14 +121,48 @@ export const DEPARTMENTS = [
   'Civil Engineering',
   'Electronics',
   'Agricultural Engineering',
+  'Biomedical Engineering',
+  'Biotechnology',
+  'Food Technology',
+  'Chemical Engineering',
 ];
 
 export const COURSES: Record<string, string[]> = {
-  'Computer Science': ['B.Tech CSE', 'M.Tech CSE', 'BCA', 'MCA'],
-  'Mechanical Engineering': ['B.Tech ME', 'M.Tech ME', 'Diploma ME'],
-  'Civil Engineering': ['B.Tech CE', 'M.Tech CE', 'Diploma CE'],
-  'Electronics': ['B.Tech ECE', 'M.Tech ECE', 'Diploma ECE'],
-  'Agricultural Engineering': ['B.Tech AG', 'M.Tech AG'],
+  'Computer Science': [
+    'B.Tech CSE',
+    'M.Tech CSE',
+    'BCA',
+    'MCA',
+    'B.E. Computer Science and Engineering',
+    'B.E. Artificial Intelligence',
+    'B.Tech. Information Technology',
+    'B.Tech. Artificial Intelligence and Data Science',
+    'B.Tech. Artificial Intelligence and Machine Learning',
+    'B.Tech. Cyber Security',
+    'B.Tech. Computer Science and Business Systems',
+  ],
+  'Mechanical Engineering': [
+    'B.Tech ME',
+    'M.Tech ME',
+    'Diploma ME',
+    'B.E. Mechanical Engineering',
+    'B.E. Automobile Engineering',
+    'B.E. Robotics and Automation',
+    'B.E. Aeronautical Engineering',
+  ],
+  'Civil Engineering': ['B.Tech CE', 'M.Tech CE', 'Diploma CE', 'B.E. Civil Engineering'],
+  'Electronics': [
+    'B.Tech ECE',
+    'M.Tech ECE',
+    'Diploma ECE',
+    'B.E. Electronics and Communication Engineering',
+    'B.E. Electrical and Electronics Engineering',
+  ],
+  'Agricultural Engineering': ['B.Tech AG', 'M.Tech AG', 'B.Tech. Agricultural Engineering'],
+  'Biomedical Engineering': ['B.E. Biomedical Engineering'],
+  'Biotechnology': ['B.Tech. Biotechnology'],
+  'Food Technology': ['B.Tech. Food Technology'],
+  'Chemical Engineering': ['B.Tech. Chemical Engineering'],
 };
 
 export const STATUSES = ['Active', 'Inactive'];
